@@ -220,7 +220,7 @@ section.blog {
     align-items: center;
     justify-content: center;
     column-gap: 0.5rem;
-    font-family: var(--secons-font);
+    font-family: var(--second-font);
     backdrop-filter: blur(24px);
     -webkit-backdrop-filter: blur(24px);
 }

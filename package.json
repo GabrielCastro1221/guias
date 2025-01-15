@@ -26,6 +26,7 @@
     "multer-storage-cloudinary": "^4.0.0",
     "nodemailer": "^6.9.16",
     "panta_page": "file:",
+    "socket.io": "^4.8.1",
     "winston": "^3.17.0"
   },
   "devDependencies": {

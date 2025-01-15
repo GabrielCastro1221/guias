@@ -1,8 +1,9 @@
 const { logger } = require("./logger.middleware");
 const configObject = require("../config/env.config");
+const socketMiddleware = require("../middlewares/socket.middleware");
 
 const serverListenMiddleware = (app) => {
-  app.listen(configObject.server.port, () => {
+  const server = app.listen(configObject.server.port, () => {
     try {
       logger.info(
         `Servidor escuchando en el puerto ${configObject.server.port} y ejecutándose en la URL http://localhost:${configObject.server.port}`
@@ -11,6 +12,8 @@ const serverListenMiddleware = (app) => {
       logger.error("Error interno del servidor", err.message);
     }
   });
+
+  socketMiddleware(server);
 };
 
 module.exports = serverListenMiddleware;

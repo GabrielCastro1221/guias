@@ -1,0 +1,23 @@
+<link rel="stylesheet" href="/css/chat.css">
+
+<section class="container grid chat-wrapper">
+    <div class="main">
+        <div class="name">
+            <input type="text" id="name-input" class="name-input" value="Escribe tu nombre" maxlength="20" />
+        </div>
+        <ul class="message-container" id="message-container">
+        </ul>
+        <form class="message-form" id="message-form">
+            <input type="text" name="message" id="message-input" placeholder="Escribe algo para empezar..."
+                class="message-input" />
+            <div class="v-divider"></div>
+            <button type="submit" class="send-button">
+                Enviar <span><i class="fas fa-paper-plane"></i></span>
+            </button>
+        </form>
+    </div>
+</section>
+<h3 class="clients-total"><span id="client-total"></span></h3>
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="/js/chat.js"></script>
