@@ -1,0 +1,33 @@
+<link rel="stylesheet" href="/css/home.css">
+
+<section class="popular section" id="popular">
+    <h2 class="section__title">
+        Nuestros guias turisticos
+    </h2>
+
+    <div class="popular__container container grid">
+        {{#if guide}}
+        {{#each guide}}
+        <article class="popular__card">
+            <div class="popular__image">
+                <a href="/guias/{{this._id}}">
+                    <img src="{{this.photo}}" alt="{{this.name}}" class="popular__img">
+                    <div class="popular__shadow"></div>
+                </a>
+            </div>
+
+            <h2 class="popular__title">
+                {{this.name}}
+            </h2>
+
+            <div class="popular__location about-guide">
+                <span>{{this.about}}</span>
+            </div>
+            <a href="/guias/{{this._id}}" class="btn-info">Mas información</a>
+        </article>
+        {{/each}}
+        {{else}}
+        <p class="message-error">{{message}}</p>
+        {{/if}}
+    </div>
+</section>

@@ -66,7 +66,7 @@ const datos = [
 
 const avatarData = {
   imagenUrl:
-    "https://vineview.com/wp-content/uploads/2017/07/avatar-no-photo-300x300.png",
+    "https://img.freepik.com/free-photo/cute-leaf-cartoon-illustration_23-2151411202.jpg?t=st=1736541127~exp=1736544727~hmac=6caf1d4eef215a8e80c895ad6f4e4af2fec0ea6c60706de168c31ab7a192776d&w=740",
   botonTexto: "Cambiar Avatar",
   botonIcono: "far fa-image",
 };

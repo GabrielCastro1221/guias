@@ -15,5 +15,7 @@ router.get("/tours", views.renderTours);
 router.get("/guias", views.renderGuides);
 router.get("/guias/:id", views.renderGuidesDetail);
 router.get("/blog", views.renderBlog);
+router.get("/post/:id", views.renderPost);
+router.get("/chat", views.renderChat);
 
 module.exports = router;

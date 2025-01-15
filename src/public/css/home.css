@@ -196,6 +196,24 @@
     transform: scale(1.2);
 }
 
+.about-guide {
+    margin-bottom: 20px;
+}
+
+.btn-info {
+    background-color: hsla(0, 0%, 100%, .2);
+    padding: 8px;
+    border-radius: 3px;
+    color: var(--title-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    column-gap: 0.5rem;
+    font-family: var(--secons-font);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+}
+
 .explore {
     position: relative;
 }

@@ -1,0 +1,33 @@
+<link rel="stylesheet" href="/css/blog.css">
+
+<section class="home-blog mt-9 container grid" id="home-blog">
+    <div class="home-blog-text container-blog-home">
+        <h2 class="home-blog-title">Panta´s Travel Blog <br> Tu fuente de gran contenido</h2>
+    </div>
+    <div class="blog-shadow"></div>
+</section>
+
+<div class="post-filter container">
+    <span class="filter-item active-filter" data-filter="all">Todas las publicaciones</span>
+    <span class="filter-item" data-filter="turismo">Turismo</span>
+    <span class="filter-item" data-filter="pajaros">Pajaros</span>
+    <span class="filter-item" data-filter="senderismo">Senderismo</span>
+    <span class="filter-item" data-filter="diversion">Diversion</span>
+</div>
+
+<section class="blog" id="blog">
+    <div class="blog-contents" id="post-cards"></div>
+    <div id="comment-modal" class="modal hidden">
+        <div class="modal-content">
+            <span id="close-modal" class="close">&times;</span>
+            <div class="comment-area">
+                <textarea id="new-comment" placeholder="Escribe tu comentario..."></textarea>
+                <button id="submit-comment" class="btn-post">Comentar</button>
+            </div>
+            <h2 class="title-comments">Comentarios sobre la publicación</h2>
+            <ul id="comment-list" class="list-comments"></ul>
+        </div>
+    </div>
+</section>
+
+<script src="/js/blog.js"></script>

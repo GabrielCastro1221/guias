@@ -106,7 +106,7 @@ class UserController {
   getUserProfile = async (req, res) => {
     const userId = req.userId;
     try {
-      const user = await userModel.findById(userId).select("-password"); // Selecciona todos los campos excepto la contraseña
+      const user = await userModel.findById(userId).select("-password"); 
       if (!user) {
         return res.status(404).json({
           success: false,

@@ -1,4 +1,5 @@
 const guideModel = require("../models/guides.model");
+const postModel = require("../models/post.model");
 
 class ViewsManager {
   renderpageNotFound = (req, res) => {
@@ -67,7 +68,7 @@ class ViewsManager {
 
   renderGuides = async (req, res) => {
     try {
-      const guide = await guideModel.find({}).lean();
+      const guide = await guideModel.find({ isApproved: "aprobado" }).lean();
       if (!guide || guide.length === 0) {
         return res.render("guides", {
           guias: null,
@@ -100,6 +101,38 @@ class ViewsManager {
       res.render("blog");
     } catch (err) {
       res.render("pageNotFound");
+    }
+  };
+
+  renderChat = (req, res) => {
+    try {
+      res.render("chat");
+    } catch (err) {
+      res.render("pageNotFound");
+    }
+  };
+
+  renderPost = async (req, res) => {
+    const { id } = req.params;
+    try {
+      const post = await postModel.findById(id).lean();
+      if (!post) {
+        return res.status(404).render("pageNotFound", {
+          message: "Publicación no encontrada",
+        });
+      }
+      res.render("postDetail", {
+        title: post.title_one,
+        title_two: post.title_two,
+        description: post.desc_one,
+        description_two: post.desc_two,
+        imageUrl: post.img,
+      });
+    } catch (err) {
+      console.error("Error al obtener la publicación:", err);
+      res.status(500).render("pageNotFound", {
+        message: "Error interno del servidor",
+      });
     }
   };
 }

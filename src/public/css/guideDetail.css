@@ -1,0 +1,297 @@
+.mt-10 {
+    margin-top: 100px;
+}
+
+.profile {
+    grid-column: span 2;
+}
+
+.profile-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+
+.profile-image {
+    max-width: 300px;
+    max-height: 200px;
+}
+
+.image {
+    width: 100%;
+    height: 300px;
+    object-fit: fill;
+    border: 2px solid var(--text-color);
+}
+
+.profile-info {
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+}
+
+.specialization {
+    background-color: var(--text-color);
+    border: 1px solid var(--text-color);
+    color: var(--body-color);
+    margin-bottom: 20px;
+    margin-top: 14px;
+    margin: auto;
+    width: 100%;
+    text-align: center;
+    padding: 10px;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 5px;
+}
+
+.doctor-name {
+    color: white;
+    font-size: 22px;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.bio {
+    font-size: 14px;
+    font-weight: 600;
+    color: white;
+    max-width: 390px;
+}
+
+.tabs {
+    margin-top: 50px;
+    border-bottom: 1px solid #e0e0e0;
+    margin-bottom: 50px;
+}
+
+.tab {
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: 600;
+    color: white;
+    cursor: pointer;
+    border: none;
+    background: none;
+}
+
+.tab.active {
+    border-bottom: 2px solid var(--text-color);
+}
+
+.tab-content {
+    margin-top: 50px;
+}
+
+.info-container {
+    padding: 20px;
+}
+
+.info-section,
+.education-section,
+.experience-section {
+    margin-top: 20px;
+}
+
+.info-title {
+    font-size: 20px;
+    line-height: 30px;
+    color: var(--text-color);
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: -10px;
+}
+
+.info-name {
+    color: var(--text-color);
+    font-size: 24px;
+    line-height: 36px;
+    font-weight: bold;
+    text-transform: capitalize;
+}
+
+.info-about {
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--text-color);
+}
+
+.about {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-color);
+    max-width: 100%;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
+}
+
+.education-title,
+.experience-title {
+    font-size: 20px;
+    line-height: 30px;
+    color: var(--text-color);
+    font-weight: 600;
+}
+
+.education-list,
+.experience-list {
+    padding-top: 20px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.education-item,
+.experience-item {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 30px;
+    border: 1px solid var(--text-color);
+}
+
+.education-item span,
+.experience-item span {
+    font-size: 15px;
+    line-height: 24px;
+    font-weight: 600;
+    color: var(--body-color);
+}
+
+.education-item p,
+.experience-item p {
+    font-size: 16px;
+    line-height: 24px;
+    font-weight: 600;
+    color: var(--body-color);
+}
+
+.experience-item {
+    padding: 20px;
+    border: 1px solid var(--body-color);
+    background-color: #fff9ea;
+    border-radius: 5px;
+}
+
+.container-cards {
+    padding: 20px;
+}
+
+.section-title {
+    font-size: 20px;
+    line-height: 30px;
+    color: var(--text-color);
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+.education-list,
+.experience-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.education-item,
+.experience-item {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 30px;
+    padding: 20px;
+    border: 1px solid #e0e0e0;
+    border-radius: 5px;
+    background-color: var(--text-color);
+}
+
+.date {
+    font-size: 15px;
+    line-height: 24px;
+    font-weight: 600;
+    color: var(--text-color);
+}
+
+.degree,
+.position {
+    font-size: 16px;
+    line-height: 24px;
+    font-weight: 600;
+    color: var(--text-color);
+}
+
+.university,
+.hospital {
+    font-size: 14px;
+    line-height: 20px;
+    font-weight: 600;
+    color: var(--text-color);
+}
+
+.bio-title {
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+.contact-btn {
+    margin-top: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.contact-doctor-link {
+    padding: 8px;
+    background-color: rgba(0, 65, 0, 0.5);
+    color: var(--text-color);
+    border-radius: 7px;
+    font-size: 1.7rem;
+}
+
+.contact-doctor-link:hover {
+    background-color: rgba(0, 82, 0, 0.5);
+    color: var(--text-color);
+}
+
+@media (max-width: 768px) {
+    .profile-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .profile-image {
+        margin: auto;
+        max-width: 450px;
+        max-height: 150px;
+    }
+
+    .specialization,
+    .doctor-name,
+    .average-rating,
+    .bio {
+        font-size: 14px;
+    }
+
+    .tabs {
+        margin-top: 30px;
+    }
+
+    .tab {
+        font-size: 14px;
+    }
+
+    .side-panel {
+        display: flex;
+        justify-content: center;
+        justify-content: center;
+        max-width: 100%;
+        margin-top: 20px;
+    }
+
+    .profile-info {
+        margin-top: 150px;
+    }
+}

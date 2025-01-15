@@ -1,89 +1,49 @@
-  .container-guides {
-      max-width: 1200px;
-      margin: auto;
-      padding: 20px;
-      padding-top: 90px;
-      background-image: url(/assets/img/profile.jpg);
-  }
+.popular__container {
+    padding-top: 1.5rem;
+    gap: 1.5rem;
+    justify-content: center;
+    row-gap: 2.5rem;
+}
 
-  .section-title {
-      text-align: center;
-      font-size: 2rem;
-      color: var(--title-color);
-      margin-bottom: 50px;
-      font-weight: bold;
-  }
+.popular__image {
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 1rem;
+}
 
-  .card-container {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 20px;
-      justify-content: flex-start;
-  }
+.popular__img {
+    transition: transform .4s;
+}
 
-  .card {
-      background-color: white;
-      border-radius: 10px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-      width: calc(33% - 20px);
-      overflow: hidden;
-      transition: transform 0.3s ease;
-      margin-bottom: 30px;
-  }
+.popular__shadow {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(180deg,
+            hsla(0, 0%, 0%, 0) 50%,
+            hsl(0, 0%, 0%) 125%);
+}
 
+.popular__title {
+    font-size: var(--h3-font-size);
+    margin-bottom: .5rem;
+}
 
-  .card:hover {
-      transform: translateY(-5px);
-  }
+.popular__location {
+    display: inline-flex;
+    align-items: center;
+    column-gap: .25rem;
+    font-size: var(--small-font-size);
+    font-family: var(--secons-font);
+    font-weight: 500;
+}
 
+.popular__location i {
+    font-size: 1rem;
+}
 
-  .card-img {
-      width: 100%;
-      height: 200px;
-      object-fit: cover;
-      border-bottom: 2px solid #f1f1f1;
-  }
-
-
-  .card-details {
-      padding: 15px;
-      text-align: center;
-  }
-
-  .card-title {
-      font-size: 1.5rem;
-      color: #2c3e50;
-      margin-top: 10px;
-      font-weight: normal;
-  }
-
-  .card-link {
-      color: #3498db;
-      font-size: 1.2rem;
-      text-decoration: none;
-      transition: color 0.3s ease;
-  }
-
-  .card-link:hover {
-      color: #2ecc71;
-  }
-
-  .alert-message {
-      color: #e74c3c;
-      text-align: center;
-      font-size: 1.2rem;
-      margin-top: 20px;
-      font-weight: bold;
-  }
-
-  @media (max-width: 768px) {
-      .card {
-          width: calc(50% - 20px);
-      }
-  }
-
-  @media (max-width: 480px) {
-      .card {
-          width: 100%;
-      }
-  }
+.popular__image:hover .popular__img {
+    transform: scale(1.2);
+}

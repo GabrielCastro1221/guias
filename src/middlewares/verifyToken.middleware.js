@@ -15,7 +15,8 @@ class AuthMiddleware {
     try {
       const token = authToken.split(" ")[1];
       const decoded = jwt.verify(token, configObject.auth.jwt_secret);
-      req.user = decoded;
+      req.userId = decoded.id;
+      req.role = decoded.role;
       next();
     } catch (error) {
       if (error.name === "TokenExpiredError") {
@@ -30,19 +31,18 @@ class AuthMiddleware {
       });
     }
   };
-
   restrict = (roles) => async (req, res, next) => {
     try {
-      const userId = req.user.id;
+      const userId = req.userId;
       let user;
       const usuario = await userModel.findById(userId);
       const guide = await guideModel.findById(userId);
-
       if (usuario) {
         user = usuario;
       } else if (guide) {
         user = guide;
-      }
+        req.guideId = guide._id;
+      } 
       if (!user) {
         return res.status(404).json({
           success: false,
@@ -55,7 +55,6 @@ class AuthMiddleware {
           message: "No tienes permiso para acceder a esta ruta.",
         });
       }
-      req.user = user;
       next();
     } catch (error) {
       return res.status(500).json({
