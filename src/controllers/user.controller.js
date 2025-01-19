@@ -113,10 +113,11 @@ class UserController {
           message: "Usuario no encontrado",
         });
       }
+  
       res.status(200).json({
         success: true,
         message: "Información del perfil obtenida exitosamente",
-        data: user,
+        data: user, 
       });
     } catch (error) {
       res.status(500).json({
@@ -125,6 +126,7 @@ class UserController {
       });
     }
   };
+  
 
   changeRolAdmin = async (req, res) => {
     const { id } = req.params;

@@ -1,46 +1,62 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const token = localStorage.getItem("token");
-  if (token) {
-    getUserProfile(token);
+  const userData = localStorage.getItem("user");
+  if (userData) {
+    const user = JSON.parse(userData);
+    renderProfile(user);
   }
+
+  const editButton = document.querySelector(".edit-button");
+  const modal = document.getElementById("editModal");
+  const closeModal = document.querySelector(".modal .close");
+
+  editButton.addEventListener("click", () => {
+    const user = JSON.parse(localStorage.getItem("user"));
+    if (user) {
+      document.getElementById("name").value = user.name || "";
+      document.getElementById("email").value = user.email || "";
+      document.getElementById("phone").value = user.phone || "";
+    }
+    modal.style.display = "block";
+  });
+
+  closeModal.addEventListener("click", () => {
+    modal.style.display = "none";
+  });
+
+  window.addEventListener("click", (event) => {
+    if (event.target === modal) {
+      modal.style.display = "none";
+    }
+  });
+
+  const editForm = document.getElementById("editForm");
+  editForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+    const formData = new FormData(editForm);
+    const updatedData = {
+      name: formData.get("name"),
+      email: formData.get("email"),
+      phone: formData.get("phone"),
+    };
+
+    const user = JSON.parse(localStorage.getItem("user")) || {};
+    const newUser = { ...user, ...updatedData };
+    localStorage.setItem("user", JSON.stringify(newUser));
+
+    renderProfile(newUser);
+    modal.style.display = "none";
+  });
 });
-
-const getUserProfile = async (token) => {
-  try {
-    const response = await fetch("/api/v1/users/profile/me", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    });
-
-    if (!response.ok) {
-      if (response.status === 401) {
-        window.location.href = "/";
-      } else {
-        throw new Error("Error al obtener el perfil del usuario");
-      }
-    }
-
-    const result = await response.json();
-    if (result.success) {
-      renderProfile(result.data);
-    } else {
-      console.error(result.message);
-    }
-  } catch (error) {
-    console.error("Error:", error.message);
-  }
-};
 
 const renderProfile = (data) => {
   const profileContainer = document.querySelector(".perfil-usuario-body");
+
   const fields = {
     name: ".perfil-usuario-bio .titulo",
-    email: ".lista-datos li:nth-child(1) span",
-    gender: ".lista-datos li:nth-child(2) span",
-    role: ".lista-datos li:nth-child(3) span",
+    email: ".lista-datos li:nth-child(2) span",
+    phone: ".lista-datos li:nth-child(3) span",
+    gender: ".lista-datos li:nth-child(4) span",
+    role: ".lista-datos li:nth-child(5) span",
   };
 
   Object.keys(fields).forEach((key) => {
@@ -52,39 +68,53 @@ const renderProfile = (data) => {
 
   const avatarImg = document.querySelector(".perfil-usuario-avatar img");
   if (avatarImg) {
-    avatarImg.src =
-      data.photo ||
-      "https://img.freepik.com/free-photo/cute-leaf-cartoon-illustration_23-2151411202.jpg?t=st=1736541127~exp=1736544727~hmac=6caf1d4eef215a8e80c895ad6f4e4af2fec0ea6c60706de168c31ab7a192776d&w=740";
+    avatarImg.src = data.photo || "/assets/img/emptyAvatar.jpg";
   }
+
+  const lista = document.querySelector(".lista-datos");
+  lista.innerHTML = "";
+
+  const datos = [
+    {
+      icono: "ri-user-line",
+      texto: "Nombre",
+      valor: data.name || "No especificado",
+    },
+    {
+      icono: "ri-mail-line",
+      texto: "Email",
+      valor: data.email || "No especificado",
+    },
+    {
+      icono: "ri-phone-line",
+      texto: "Telefono",
+      valor: data.phone || "No especificado",
+    },
+    {
+      icono: "ri-men-line",
+      texto: "Género",
+      valor: data.gender || "No especificado",
+    },
+    {
+      icono: "ri-user-settings-line",
+      texto: "Rol",
+      valor: data.role || "No especificado",
+    },
+  ];
+
+  datos.forEach((dato) => {
+    const li = document.createElement("li");
+    const icono = document.createElement("i");
+    icono.className = `${dato.icono} icono`;
+    const texto = document.createTextNode(` ${dato.texto}: `);
+    const span = document.createElement("span");
+    span.textContent = dato.valor;
+    li.appendChild(icono);
+    li.appendChild(texto);
+    li.appendChild(span);
+    lista.appendChild(li);
+  });
 };
-
-const datos = [
-  { icono: "ri-mail-line", texto: "Email", valor: "" },
-  { icono: "ri-men-line", texto: "Género", valor: "" },
-  { icono: "ri-user-settings-line", texto: "Rol", valor: "" },
-];
-
-const avatarData = {
-  imagenUrl:
-    "https://img.freepik.com/free-photo/cute-leaf-cartoon-illustration_23-2151411202.jpg?t=st=1736541127~exp=1736544727~hmac=6caf1d4eef215a8e80c895ad6f4e4af2fec0ea6c60706de168c31ab7a192776d&w=740",
-  botonTexto: "Cambiar Avatar",
-  botonIcono: "far fa-image",
-};
-
-const lista = document.querySelector(".lista-datos");
-
-datos.forEach((dato) => {
-  const li = document.createElement("li");
-  const icono = document.createElement("i");
-  icono.className = `${dato.icono} icono`;
-  const texto = document.createTextNode(` ${dato.texto}: `);
-  const span = document.createElement("span");
-  span.textContent = dato.valor;
-  li.appendChild(icono);
-  li.appendChild(texto);
-  li.appendChild(span);
-  lista.appendChild(li);
-});
 
 const logoutButton = document.querySelector(".logout-button");
 logoutButton.addEventListener("click", () => {
@@ -94,10 +124,10 @@ logoutButton.addEventListener("click", () => {
 });
 
 const deleteButton = document.querySelector(".delete-button");
-
 deleteButton.addEventListener("click", async () => {
   const userData = JSON.parse(localStorage.getItem("user"));
   const token = localStorage.getItem("token");
+
   if (!userData || !userData._id) {
     alert("No se encontró el ID del usuario.");
     return;
@@ -106,6 +136,7 @@ deleteButton.addEventListener("click", async () => {
     alert("No se proporcionó el token.");
     return;
   }
+
   const id = userData._id;
 
   Swal.fire({

@@ -1,23 +1,34 @@
 <link rel="stylesheet" href="/css/userProfile.css" />
 
-<div class="profile-content" id="profile">
-  <h2 class="section__title mt10">Perfil de usuario</h2>
+<div class="profile-content mt10" id="profile">
   <section class="seccion-perfil-usuario">
     <div class="perfil-usuario-header">
-      <div class="perfil-usuario-portada">
-        <div class="perfil-usuario-avatar">
-          <img src="https://img.freepik.com/free-photo/cute-leaf-cartoon-illustration_23-2151411202.jpg?t=st=1736541127~exp=1736544727~hmac=6caf1d4eef215a8e80c895ad6f4e4af2fec0ea6c60706de168c31ab7a192776d&w=740" alt="Avatar" />
-        </div>
-      </div>
+      <img class="avatar" src="/assets/img/emptyAvatar.jpg" alt="Avatar" />
     </div>
 
     <div class="perfil-usuario-body">
-      <div class="perfil-usuario-footer ct">
-        <ul class="lista-datos"></ul>
-      </div>
-      <div class="btns-exit">
-        <button class="btn-logout logout-button">Cerrar Sesión</button>
-        <button class="btn-delete delete-button">Eliminar Cuenta</button>
+      <ul class="lista-datos"></ul>
+    </div>
+
+    <div class="btns-exit">
+      <button class="edit-button"><i class="ri-pencil-line"></i> Editar Perfil</button>
+      <button class="logout-button"><i class="ri-shut-down-line"></i> Cerrar Sesión</button>
+      <button class="delete-button"><i class="ri-delete-bin-6-line"></i> Eliminar Cuenta</button>
+    </div>
+
+    <div id="editModal" class="modal">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Editar Mis Datos</h2>
+        <form id="editForm">
+          <label for="name">Nombre:</label>
+          <input type="text" id="name" name="name" placeholder="Nombre" />
+          <label for="email">Email:</label>
+          <input type="email" id="email" name="email" placeholder="Email" />
+          <label for="phone">Teléfono:</label>
+          <input type="text" id="phone" name="phone" placeholder="Teléfono" />
+          <button type="submit" class="save-button">Actualizar Perfil</button>
+        </form>
       </div>
     </div>
   </section>

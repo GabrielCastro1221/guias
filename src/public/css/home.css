@@ -7,7 +7,7 @@
     top: 0;
     left: 0;
     width: 100%;
-    height: 750px;
+    height: 100vh;
     object-fit: cover;
     object-position: center;
 }
@@ -18,10 +18,9 @@
     left: 0;
     width: 100%;
     height: 800px;
-    background: linear-gradient(180deg,
-            hsla(0, 0%, 0%, 0) 58%,
-            hsl(0, 0%, 0%) 78%);
+    background: transparent;
 }
+
 
 .home__container {
     position: relative;
@@ -56,6 +55,8 @@
 .home__card {
     position: relative;
     overflow: hidden;
+    padding: 8px;
+    box-shadow: 0px 0px 15px rgba(255, 255, 255, 0.1);
 }
 
 .home__card-img {
@@ -124,11 +125,14 @@
     position: relative;
     justify-self: center;
     overflow: hidden;
+    padding: 8px;
+    box-shadow: 0px 0px 15px rgba(255, 255, 255, 0.1);
 }
 
 .about__img {
     width: 300px;
     transition: transform .4s;
+    border-radius: 4px;
 }
 
 .about__shadow {
@@ -227,6 +231,7 @@
     width: 100%;
     height: 333px;
     object-fit: cover;
+    border-radius: 3px;
     object-position: center;
 }
 

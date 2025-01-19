@@ -1,0 +1,28 @@
+.title {
+    text-align: center;
+    font-size: 1.7rem;
+    margin-top: 20px;
+}
+
+.home__cards {
+    margin-top: -20px;
+}
+
+.home__card {
+    position: relative;
+}
+
+.home__card-img {
+    width: 100%;
+    height: auto;
+}
+
+.home__card-title {
+    display: grid;
+}
+
+.home__card-title span {
+    font-size: 0.7rem;
+    margin-right: 5px;
+    margin-top: 3px;
+}

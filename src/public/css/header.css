@@ -1,7 +1,9 @@
 .header {
     position: fixed;
     width: 100%;
-    background-color: transparent;
+    background-color: hsla(0, 0%, 0%, .3);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
     top: 0;
     left: 0;
     z-index: var(--z-fixed);
