@@ -1,0 +1,19 @@
+<link rel="stylesheet" href="/css/changePass.css">
+
+<section class="body-login">
+    <div class="wrapper">
+        <form action="/api/v1/auth/reset-password" method="POST" class="form">
+            <h1>Actualizar contraseña</h1>
+            <div class="input-box">
+                <input type="text" name="email" placeholder="Ingrese su correo electronico" required>
+            </div>
+            <div class="input-box">
+                 <input type="text" name="token" id="token" placeholder="Ingrese el codigo de confirmación"   required />
+            </div>
+           <div class="input-box">
+                <input type="password" name="password" placeholder="Ingrese la nueva Contraseña"            required />
+            </div>
+            <button type="submit" class="btn">Actualizar Contraseña</button>
+        </form>
+    </div>
+</section>

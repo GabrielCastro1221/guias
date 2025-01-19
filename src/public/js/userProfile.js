@@ -59,9 +59,9 @@ const renderProfile = (data) => {
 };
 
 const datos = [
-  { icono: "fa-solid fa-envelope", texto: "Email", valor: "" },
-  { icono: "fa-solid fa-venus-mars", texto: "Género", valor: "" },
-  { icono: "fa-solid fa-address-book", texto: "Rol", valor: "" },
+  { icono: "ri-mail-line", texto: "Email", valor: "" },
+  { icono: "ri-men-line", texto: "Género", valor: "" },
+  { icono: "ri-user-settings-line", texto: "Rol", valor: "" },
 ];
 
 const avatarData = {

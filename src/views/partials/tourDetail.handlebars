@@ -1,0 +1,68 @@
+<link rel="stylesheet" href="/css/tourDetail.css">
+
+<section class="container grid">
+  <div class="container-tour">
+    <div class="tour-container">
+      <div>
+        <div class="gallery" id="gallery">
+          {{#if tour.thumbnail}}
+          {{#each tour.thumbnail}}
+          <img src="{{this}}" alt="{{../tour.name}}" />
+          {{/each}}
+          {{else}}
+          <p>No hay imágenes disponibles.</p>
+          {{/if}}
+        </div>
+      </div>
+
+      <div id="tour-detail">
+        <h2>{{tour.name}}</h2>
+        <p class="description">{{tour.description}}</p>
+        <p class="address"><strong class="sub">Lugar del tour:</strong>
+          <span>{{tour.location}}</span>
+        </p>
+        <p class="status"><strong class="sub">Tipo del tour:</strong>
+          <span>{{tour.type}}</span>
+        </p>
+      </div>
+    </div>
+    <div class="place-info">
+      <div class="info-content">
+        <div class="tabs">
+          <button data-target="info">Información</button>
+          <button data-target="map">Google Maps</button>
+        </div>
+        <hr>
+        <div id="info">
+          <h3>{{tour.name}}</h3>
+          <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Id, incidunt eligendi esse accusantium quidem
+            error. Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus repellat laboriosam perferendis veniam
+            blanditiis, ab mollitia ullam sapiente similique eos ea, quo beatae, placeat eligendi.</p>
+          <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Id, incidunt eligendi esse accusantium quidem
+            error. Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias esse ducimus facilis laboriosam.
+            Adipisci, saepe.</p>
+          <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Id, incidunt eligendi esse accusantium quidem
+            error. Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui vero molestiae quibusdam quasi natus
+            repellat porro rem saepe nobis sequi!</p>
+          <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Id, incidunt eligendi esse accusantium quidem
+            error. Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nostrum, sint?
+          </p>
+        </div>
+        <div class="map" id="map" style="display: none;">
+          <div class="map-content">
+            <h3>Ubicación del tour</h3>
+            <div class="iframe-content">
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7948.314500929586!2d-75.49234984310824!3d5.078248466279299!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e476f992bc1d18f%3A0x4b20e9455c9bd181!2sSolferino%2C%20Manizales%2C%20Caldas!5e0!3m2!1ses-419!2sco!4v1737248934767!5m2!1ses-419!2sco"
+                width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade" class="iframe"></iframe>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+</section>
+
+<script src="/js/tourDetail.js"></script>

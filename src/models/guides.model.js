@@ -14,6 +14,7 @@ const schema = new Schema(
     specialization: { type: String },
     education: { type: Array },
     experiences: { type: Array },
+    tours: [{ type: Schema.Types.ObjectId, ref: "Tour" }],
     isApproved: {
       type: String,
       enum: ["pendiente", "aprobado", "cancelado"],

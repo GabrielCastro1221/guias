@@ -18,6 +18,16 @@
     color: var(--title-color);
     font-family: var(--second-font);
     font-weight: var(--font-semi-bold);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+
+.nav__logo img {
+    margin-top: 5px;
+    width: 35px;
+    height: 35px;
 }
 
 .nav__toggle,
@@ -26,6 +36,17 @@
     font-size: 1.25rem;
     color: var(--title-color);
     cursor: pointer;
+}
+
+.login__btn {
+    padding: 8px;
+    color: var(--title-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    column-gap: 0.5rem;
+    font-family: var(--second-font);
+    margin-left: 30px;
 }
 
 @media screen and (max-width: 1023px) {
@@ -99,12 +120,6 @@
 }
 
 
-.login__btn {
-    padding: 8px;
-    background-color: #fff;
-    color: #000;
-    border-radius: 5px;
-}
 @media screen and (min-width: 1023px) {
 
     .nav__close,

@@ -1,0 +1,42 @@
+.container-confirm {
+    text-align: center;
+    padding: 40px;
+    margin-top: 90px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.content {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+h1 {
+    font-size: 36px;
+    margin: 0;
+    color: var(--title-color);
+}
+
+p {
+    font-size: 18px;
+    color: var(--text-color);
+    margin: 20px 0;
+}
+
+.btn-confirm {
+    background-color: hsla(0, 0%, 100%, .2);
+    padding: 8px;
+    border-radius: 3px;
+    color: var(--title-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    column-gap: 0.5rem;
+    font-family: var(--second-font);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+}
+
+.btn-confirm:hover {
+    background-color: #5b5a5a;
+}

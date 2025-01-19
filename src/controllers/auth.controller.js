@@ -3,7 +3,11 @@ const guideModel = require("../models/guides.model");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const configObject = require("../config/env.config");
-const { createHash } = require("../utils/hash.util");
+const { createHash, isValidPassword } = require("../utils/hash.util");
+const { generarResetToken } = require("../utils/resetToken");
+const MailerManager = require("../services/nodemailer.services");
+
+const mailer = new MailerManager();
 
 class AuthController {
   generateToken = (user) => {
@@ -82,8 +86,14 @@ class AuthController {
           role,
         });
       }
-
       await user.save();
+      if (role === "guia") {
+        await mailer.enviarCorreoBienvenidaGuia(email);
+        await mailer.enviarCorreoNuevoGuia({
+          name,
+          email,
+        });
+      }
       return res
         .status(200)
         .json({ status: true, message: "Registro Exitoso", user: user });
@@ -137,6 +147,69 @@ class AuthController {
       res.status(500).json({
         error: error.message,
         message: "Error al iniciar sesión",
+      });
+    }
+  };
+
+  RequestPasswordReset = async (req, res) => {
+    const { email } = req.body;
+    try {
+      let user = await userModel.findOne({ email });
+      if (!user) {
+        user = await guideModel.findOne({ email });
+      }
+      if (!user) {
+        return res.render("changePass", { error: "Usuario no encontrado" });
+      }
+      const token = generarResetToken();
+      user.token_reset = {
+        token: token,
+        expire: new Date(Date.now() + 3600000),
+      };
+      await user.save();
+      await mailer.enviarCorreoRestablecimiento(email, token);
+      res.redirect("/confirm");
+    } catch (err) {
+      res.status(500).json({
+        status: false,
+        message: "error interno del servidor",
+        error: err.message,
+      });
+    }
+  };
+
+  resetPassword = async (req, res) => {
+    const { email, password, token } = req.body;
+    try {
+      let user = await userModel.findOne({ email });
+      if (!user) {
+        user = await guideModel.findOne({ email });
+      }
+      if (!user) {
+        return res.render("resetPass", { error: "Usuario no encontrado" });
+      }
+      const resetToken = user.token_reset;
+      if (!resetToken || resetToken.token !== token) {
+        return res.render("resetPass", { error: "Token invalido" });
+      }
+      const ahora = new Date();
+      if (ahora > resetToken.expire) {
+        return res.render("resetPass", { error: "El token expiro" });
+      }
+      if (isValidPassword(password, user)) {
+        return res.render("resetPass", {
+          error: "La nueva contraseña no puede ser igual a a la anterior",
+        });
+      }
+      user.password = createHash(password);
+      user.token_reset = undefined;
+      await user.save();
+      return res.redirect("/login");
+    } catch (err) {
+      res.status(500).json({
+        status: false,
+        message: "error interno del servidor",
+        error: err.message,
       });
     }
   };

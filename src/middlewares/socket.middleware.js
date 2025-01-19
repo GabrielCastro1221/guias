@@ -6,12 +6,12 @@ const socketMiddleware = (server) => {
   let socketsConected = new Set();
 
   io.on("connection", (socket) => {
-    logger.info("Socket connected", socket.id);
+    logger.info("Un usuario se ha conectado", socket.id);
     socketsConected.add(socket.id);
     io.emit("clients-total", socketsConected.size);
 
     socket.on("disconnect", () => {
-      logger.info("Socket disconnected", socket.id);
+      logger.info("Un usuario se ha desconectado", socket.id);
       socketsConected.delete(socket.id);
       io.emit("clients-total", socketsConected.size);
     });

@@ -5,7 +5,29 @@
     navLinks = document.querySelectorAll(".nav__link"),
     header = document.getElementById("header"),
     scrollUpBtn = document.getElementById("scroll-up"),
-    sections = document.querySelectorAll("section[id]");
+    sections = document.querySelectorAll("section[id]"),
+    navList = document.querySelector(".nav__list");
+
+  const links = [
+    { href: "/", text: "Inicio" },
+    { href: "/guias", text: "Nuestro Equipo" },
+    { href: "/tours", text: "Tours" },
+    { href: "/chat", text: "Chat Comunitario" },
+    { href: "/blog", text: "Blog" },
+  ];
+
+  const createNavLinks = () => {
+    navList.innerHTML = links
+      .map(
+        (link) =>
+          `<li class="nav__item">
+            <a href="${link.href}" class="nav__link">${link.text}</a>
+          </li>`
+      )
+      .join("");
+  };
+
+  createNavLinks();
 
   if (navToggle) {
     navToggle.addEventListener("click", () => {
@@ -17,6 +39,23 @@
     navClose.addEventListener("click", () => {
       navMenu.classList.remove("show-menu");
     });
+  }
+
+  const user = JSON.parse(localStorage.getItem("user"));
+  const authButton = document.getElementById("auth-button");
+
+  if (user) {
+    authButton.textContent = "Perfil";
+    if (user.role === "guide") {
+      authButton.href = "/perfil-guia";
+    } else if (user.role === "usuario") {
+      authButton.href = "/perfil-usuario";
+    } else if (user.role === "admin") {
+      authButton.href = "/perfil-admin";
+    }
+  } else {
+    authButton.textContent = "Ingresar";
+    authButton.href = "/login";
   }
 
   navLinks.forEach((link) =>
@@ -68,17 +107,4 @@
     handleScrollUp();
     handleScrollActive();
   });
-
-  const sr = ScrollReveal({
-    origin: "top",
-    distance: "60px",
-    duration: 3000,
-    delay: 400,
-  });
-
-  sr.reveal(`.home__data, .explore__data, .explore__user, .footer__container`);
-  sr.reveal(`.home__card`, { delay: 600, distance: "100px", interval: 100 });
-  sr.reveal(`.about__data, .join__image`, { origin: "right" });
-  sr.reveal(`.about__image, .join__data`, { origin: "left" });
-  sr.reveal(`.popular__card`, { interval: 200 });
 })();

@@ -1,5 +1,6 @@
 const guideModel = require("../models/guides.model");
 const postModel = require("../models/post.model");
+const tourModel = require("../models/tour.model");
 
 class ViewsManager {
   renderpageNotFound = (req, res) => {
@@ -58,9 +59,31 @@ class ViewsManager {
     }
   };
 
-  renderTours = (req, res) => {
+  renderTours = async (req, res) => {
     try {
-      res.render("tours");
+      const tour = await tourModel.find({ isApproved: "aprobado" }).lean();
+      if (!tour || tour.length === 0) {
+        return res.render("tours", {
+          guias: null,
+          message: "Lo sentimos, No hay tours disponibles en este momento...",
+        });
+      }
+      res.render("tours", { tour });
+    } catch (err) {
+      res.render("pageNotFound");
+    }
+  };
+
+  renderTourDetail = async (req, res) => {
+    const { id } = req.params;
+    try {
+      const tour = await tourModel.findById(id).lean();
+      if (!tour) {
+        return res.status(404).render("pageNotFound", {
+          message: "Tour no encontrado",
+        });
+      }
+      res.render("tourDetail", { tour });
     } catch (err) {
       res.render("pageNotFound");
     }
@@ -104,14 +127,6 @@ class ViewsManager {
     }
   };
 
-  renderChat = (req, res) => {
-    try {
-      res.render("chat");
-    } catch (err) {
-      res.render("pageNotFound");
-    }
-  };
-
   renderPost = async (req, res) => {
     const { id } = req.params;
     try {
@@ -133,6 +148,38 @@ class ViewsManager {
       res.status(500).render("pageNotFound", {
         message: "Error interno del servidor",
       });
+    }
+  };
+
+  renderChat = (req, res) => {
+    try {
+      res.render("chat");
+    } catch (err) {
+      res.render("pageNotFound");
+    }
+  };
+ 
+  renderConfirmEmail = (req, res) => {
+    try {
+      res.render("emailConfirm");
+    } catch (err) {
+      res.render("pageNotFound");
+    }
+  };
+  
+  renderResetPass = (req, res) => {
+    try {
+      res.render("resetPass");
+    } catch (err) {
+      res.render("pageNotFound");
+    }
+  };
+  
+  renderChangePass = (req, res) => {
+    try {
+      res.render("ChangePass");
+    } catch (err) {
+      res.render("pageNotFound");
     }
   };
 }

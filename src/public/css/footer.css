@@ -60,6 +60,7 @@
     color: var(--text-color);
     font-size: 1.25rem;
     transition: color .4s, transform .4s;
+    margin-right: 20px;
 }
 
 .footer__social-link:hover {
@@ -71,6 +72,7 @@
     font-size: var(--smaller-font-size);
     color: var(--text-color-light);
     text-align: center;
+    margin-left: 20px;
 }
 
 @media screen and (max-width: 340px) {

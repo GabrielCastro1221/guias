@@ -8,7 +8,8 @@
     <div class="popular__container container grid">
         {{#if guide}}
         {{#each guide}}
-        <article class="popular__card">
+        <article class="popular__card"
+            style="box-shadow: 0px 0px 15px rgba(255, 255, 255, 0.1); padding: 12px; border-radius: 5px">
             <div class="popular__image">
                 <a href="/guias/{{this._id}}">
                     <img src="{{this.photo}}" alt="{{this.name}}" class="popular__img">
@@ -16,12 +17,12 @@
                 </a>
             </div>
 
-            <h2 class="popular__title">
+            <h2 class="popular__title" style="text-align: center;">
                 {{this.name}}
             </h2>
 
             <div class="popular__location about-guide">
-                <span>{{this.about}}</span>
+                <span style="text-align: center;">{{this.about}}</span>
             </div>
             <a href="/guias/{{this._id}}" class="btn-info">Mas información</a>
         </article>

@@ -70,10 +70,13 @@
 
   }
 
-  .remember-forgot a {
-      color: #fff;
-      text-decoration: none;
+  .forgot {
+    color: var(--text-color);
+    margin-top: 10px;
+  }
 
+  .forgot:hover {
+    border-bottom: 1px solid var(--text-color);
   }
 
   .remember-forgot a:hover {

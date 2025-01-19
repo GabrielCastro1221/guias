@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const filterItems = document.querySelectorAll(".filter-item");
+  const filterContainer = document.querySelector(".post-filter");
   const postCards = document.getElementById("post-cards");
   const modal = document.getElementById("comment-modal");
   const closeModal = document.getElementById("close-modal");
@@ -7,6 +7,27 @@ document.addEventListener("DOMContentLoaded", () => {
   const commentTextarea = document.getElementById("new-comment");
 
   let currentPostId = null;
+
+  const tabs = [
+    { dataFilter: "all", text: "Todas las publicaciones" },
+    { dataFilter: "turismo", text: "Turismo" },
+    { dataFilter: "pajaros", text: "Pajaros" },
+    { dataFilter: "senderismo", text: "Senderismo" },
+    { dataFilter: "diversion", text: "Diversion" },
+  ];
+
+  const createTabs = () => {
+    filterContainer.innerHTML = tabs
+      .map(
+        (tab, index) =>
+          `<span class="filter-item ${
+            index === 0 ? "active-filter" : ""
+          }" data-filter="${tab.dataFilter}">${tab.text}</span>`
+      )
+      .join("");
+  };
+
+  createTabs();
 
   const showModal = (comments, postId) => {
     currentPostId = postId;
@@ -53,7 +74,9 @@ document.addEventListener("DOMContentLoaded", () => {
       .map(
         (article) => `
           <div class="article-card ${article.category.toLowerCase()}">
-            <a href="/post/${article._id}"><img src="${article.img}" alt="${article.title_one}" /></a>
+            <a href="/post/${article._id}"><img src="${article.img}" alt="${
+          article.title_one
+        }" /></a>
             <div class="category">
               <div class="subject ${article.category}"><h3>${
           article.category
@@ -132,9 +155,6 @@ document.addEventListener("DOMContentLoaded", () => {
           position: "right",
           background: "#00b09b",
         }).showToast();
-        setTimeout(() => {
-          location.reload();
-        }, 1000);
       } else {
         Toastify({
           text: data.message || "Error al agregar el comentario.",
@@ -160,11 +180,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
   fetchArticles();
 
-  filterItems.forEach((item) => {
-    item.addEventListener("click", () => {
-      filterItems.forEach((filter) => filter.classList.remove("active-filter"));
-      item.classList.add("active-filter");
-      const filterValue = item.getAttribute("data-filter");
+  filterContainer.addEventListener("click", (event) => {
+    const target = event.target;
+    if (target.classList.contains("filter-item")) {
+      document
+        .querySelectorAll(".filter-item")
+        .forEach((filter) => filter.classList.remove("active-filter"));
+      target.classList.add("active-filter");
+
+      const filterValue = target.getAttribute("data-filter");
       const cards = document.querySelectorAll(".article-card");
       cards.forEach((card) => {
         if (filterValue === "all" || card.classList.contains(filterValue)) {
@@ -173,6 +197,6 @@ document.addEventListener("DOMContentLoaded", () => {
           card.style.display = "none";
         }
       });
-    });
+    }
   });
 });
