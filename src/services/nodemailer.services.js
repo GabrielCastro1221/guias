@@ -65,7 +65,7 @@ class MailerManager {
         error.message
       );
     }
-  }  
+  }
 
   async enviarCorreoNuevoGuia(guideData) {
     try {
@@ -91,6 +91,67 @@ class MailerManager {
     } catch (error) {
       logger.error(
         "Error al enviar correo de notificación de nuevo guia turistico:",
+        error.message
+      );
+    }
+  }
+
+  async enviarCorreoTourCreado(email, tourName) {
+    try {
+      const Opt = {
+        from: configObject.mailer.email_from,
+        to: email,
+        subject: "Tour creado con éxito",
+        html: `<div style="font-family: Arial, sans-serif; color: #333; line-height: 1.6; max-width: 600px;   margin: 0 auto; border: 1px solid #ddd; padding: 20px; border-radius: 10px;"> 
+              <div style="text-align: center; margin-bottom: 20px;"> 
+                <h1 style="color: #1b715e;">Cloud Forest Colombia</h1>
+              </div> 
+              <h2 style="color: #1b715e;">¡Se ha agregado tu tour en la cola de revisión!</h2> 
+              <p>El tour <strong>${tourName}</strong> ha sido creado con éxito. Una vez sea aprobado por la administración, aparecerá en el panel de tours de la plataforma Cloud Forest Colombia.</p>
+            </div>`,
+      };
+      await this.transporter.sendMail(Opt);
+    } catch (error) {
+      logger.error(
+        "Error al enviar correo de notificación de tour creado:",
+        error.message
+      );
+    }
+  }
+
+  async enviarCorreoNotificacionTourCreado(tourData) {
+    try {
+      const {
+        name,
+        description,
+        location,
+        category,
+        type,
+      } = tourData;
+      const Opt = {
+        from: configObject.mailer.email_from,
+        to: "cloudforestcolombia@gmail.com",
+        subject: "Nuevo Tour Creado en Cloud Forest Colombia",
+        html: `<div style="font-family: Arial, sans-serif; color: #333; line-height: 1.6; max-width: 600px; margin: 0 auto; border: 1px solid #ddd; padding: 20px; border-radius: 10px;">
+         <div style="text-align: center; margin-bottom: 20px;"> 
+            <h1 style="color: #1b715e;">Cloud Forest Colombia</h1> 
+          </div> 
+          <h2 style="color: #1b715e;">Nuevo Tour Creado</h2> 
+          <p>Un guía ha creado un nuevo tour en la plataforma con los siguientes datos:</p> 
+          <ul> 
+            <li><strong>Nombre del Tour:</strong> ${name}</li> 
+            <li><strong>Descripción:</strong> ${description}</li> 
+            <li><strong>Ubicación:</strong> ${location}</li> 
+            <li><strong>Categoría:</strong> ${category}</li> 
+            <li><strong>Tipo:</strong> ${type}</li> 
+          </ul> 
+          <p>Por favor, revise la información y tome las acciones necesarias para aprobar el tour.</p> 
+        </div>`,
+      };
+      await this.transporter.sendMail(Opt);
+    } catch (error) {
+      logger.error(
+        "Error al enviar correo de notificación de nuevo tour:",
         error.message
       );
     }

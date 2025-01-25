@@ -1,9 +1,11 @@
 const { Router } = require("express");
 const TourController = require("../controllers/tour.controller");
 const upload = require("../middlewares/upload.middleware");
+const AuthMiddleware = require("../middlewares/verifyToken.middleware");
 
 const router = Router();
 const tour = new TourController();
+const auth = new AuthMiddleware();
 
 router.post(
   "/",
@@ -11,6 +13,8 @@ router.post(
     { name: "mainImg", maxCount: 1 },
     { name: "photos", maxCount: 10 },
   ]),
+  auth.authenticate,
+  auth.restrict(["guia"]),
   tour.createTour
 );
 

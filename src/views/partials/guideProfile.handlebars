@@ -1,0 +1,62 @@
+<link rel="stylesheet" href="/css/guideProfile.css">
+
+<section class="mt-10">
+    <div class="container">
+        <div id="content" class="grid">
+            <div class="profile">
+                <div class="profile-header">
+                    <figure class="profile-image">
+                        <img src="/assets/img/about.jpg" alt="" class="image" />
+                    </figure>
+                    <div class="profile-info">
+                        <span id="specialization" class="specialization"></span>
+                        <h3 id="guide-name" class="guide-name"></h3>
+                        <h4 class="bio-title">Biografia:</h4>
+                        <p id="bio" class="bio"></p>
+                        <div class="mt-3 contact-btn">
+                            <button class="edit-btn">
+                                <i class="ri-pencil-line"></i>
+                                Editar Información Perfil
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tabs">
+                    <button class="tab" data-target="info">Información</button>
+                    <button class="tab" data-target="create-tours">Crear Tour</button>
+                    <button class="tab" data-target="tours">Mis Tours</button>
+                </div>
+
+                <div id="info" class="tab-content">
+                    <div class="info-container" style="margin-top: -50px;">
+                        <div class="container-cards">
+                            <div class="education-section">
+                                <h3 class="section-title">Educación</h3>
+                                <ul class="education-list"></ul>
+                            </div>
+
+                            <div class="experience-section">
+                                <h3 class="section-title">Experiencia</h3>
+                                <ul class="experience-list"></ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="create-tours" class="tab-content">
+                    {{> createTour}}
+                </div>
+
+                <div id="tours" class="tab-content"></div>
+            </div>
+        </div>
+
+        <div class="btn-out">
+            <button class="logout-button">Cerrar sesión</button>
+            <button class="delete-button">Eliminar cuenta</button>
+        </div>
+    </div>
+</section>
+
+<script src="/js/guideProfile.js"></script>

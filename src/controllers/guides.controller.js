@@ -1,4 +1,5 @@
 const guideModel = require("../models/guides.model");
+const tourModel = require("../models/tour.model");
 
 class GuideController {
   getAllGuides = async (req, res) => {
@@ -74,7 +75,6 @@ class GuideController {
       });
     }
   };
-  
 
   deleteGuide = async (req, res) => {
     const { id } = req.params;
@@ -101,9 +101,9 @@ class GuideController {
   };
 
   async getGuideProfile(req, res) {
-    const guideId = req.user ? req.user._id : null;
+    const guideId = req.guideId ? req.guideId : null;
     try {
-      const guide = await guideModel.findById(guideId).select("-password");
+      const guide = await guideModel.findById(guideId).populate("tours").select("-password");
       if (!guide) {
         return res.status(404).json({
           success: false,

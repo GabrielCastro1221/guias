@@ -1,12 +1,24 @@
 const tourModel = require("../models/tour.model");
+const guideModel = require("../models/guides.model");
+const MailerManager = require("../services/nodemailer.services");
+
+const mailer = new MailerManager();
 
 class TourController {
   createTour = async (req, res) => {
     try {
-      const { name, description, location, category, type, avaliables_dates } =
-        req.body;
+      const {
+        guideId,
+        name,
+        description,
+        location,
+        category,
+        type,
+        avaliables_dates,
+      } = req.body;
 
       const requiredFields = [
+        guideId,
         name,
         description,
         location,
@@ -33,6 +45,7 @@ class TourController {
         description,
         img: mainImg,
         thumbnail: photos,
+        guide: guideId,
         location,
         category,
         type,
@@ -40,6 +53,18 @@ class TourController {
       });
 
       await newTour.save();
+      await guideModel.findByIdAndUpdate(guideId, {
+        $push: { tours: newTour._id },
+      });
+      const guideEmail = await guideModel.findById(guideId).select("email");
+      await mailer.enviarCorreoTourCreado(guideEmail.email, name);
+      await mailer.enviarCorreoNotificacionTourCreado({
+        name,
+        description,
+        location,
+        category,
+        type,
+      });
       res.status(200).json({
         status: true,
         message: "Tour creado con exito",
@@ -112,13 +137,11 @@ class TourController {
         res.status(404).json({ status: false, message: "Tour no encontrado" });
       }
 
-      res
-        .status(200)
-        .json({
-          status: true,
-          message: "Tour actualizado con exito",
-          tour: tour,
-        });
+      res.status(200).json({
+        status: true,
+        message: "Tour actualizado con exito",
+        tour: tour,
+      });
     } catch (err) {
       res.status(500).json({
         status: false,
@@ -128,7 +151,7 @@ class TourController {
     }
   };
 
-  deleteTour = async(req, res) => {
+  deleteTour = async (req, res) => {
     const { id } = req.params;
     try {
       const tour = await tourModel.findByIdAndDelete(id);
@@ -136,10 +159,14 @@ class TourController {
       if (!tour) {
         res.status(404).json({ status: false, message: "Tour no encontrado" });
       }
-      
+
       res
         .status(200)
-        .json({ status: true, message: "Tour eliminado con exito", tour: tour });
+        .json({
+          status: true,
+          message: "Tour eliminado con exito",
+          tour: tour,
+        });
     } catch (err) {
       res.status(500).json({
         status: false,
@@ -147,7 +174,7 @@ class TourController {
         error: err.message,
       });
     }
-  }
+  };
 }
 
 module.exports = TourController;

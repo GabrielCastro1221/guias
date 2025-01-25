@@ -11,6 +11,7 @@ const setupRoutes = (app) => {
   app.use("/api/v1", uploadRouter);
   app.use("/api/v1/auth", authRouter);
   app.use("/api/v1/users", userRouter);
+  app.use("/api/v1/guides", guideRouter);
   app.use("/api/v1/post", postRouter);
   app.use("/api/v1/tour", tourRouter);
 };

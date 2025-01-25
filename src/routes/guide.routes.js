@@ -8,11 +8,7 @@ const guide = new GuideController();
 const auth = new AuthMiddleware();
 
 router.get("/", guide.getAllGuides);
-router.get(
-  "/:id",
-
-  guide.getGuideById
-);
+router.get("/:id", guide.getGuideById);
 router.get(
   "/profile/me",
   auth.authenticate,
@@ -21,6 +17,7 @@ router.get(
 );
 
 router.put("/:id", guide.updateGuide);
+
 router.put("/:id/approval-status", 
   auth.authenticate, 
   auth.restrict(["admin"]), 

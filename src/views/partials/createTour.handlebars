@@ -1,0 +1,78 @@
+<section class="body-register">
+    <div class="wrapper">
+        <form class="form" enctype="multipart/form-data">
+            <h1>Crear Aventura</h1>
+            
+            <div class="input-box">
+                <input type="text" name="name" placeholder="Ingrese nombre del tour" required>
+            </div>
+
+            <div class="input-box">
+                <input type="text" name="description" placeholder="Ingrese la descripcion del tour" required>
+            </div>
+
+            <div class="input-box">
+                <input type="text" name="location" placeholder="Ingrese el lugar del tour" required>
+            </div>
+
+            <div class="input-box">
+                <input type="text" name="category" placeholder="Ingrese la categoria del tour" required>
+            </div>
+
+            <div class="form-group flex-gap">
+                <div class="img-wpp mt">
+                    <figure class="image-preview" style="display: none;">
+                        <img src="https://img.freepik.com/vetores-premium/molduras-para-fotos-retro-vector-realista-modelo-de-design-de-foto-isolado-em-fundo-transparente_97886-292.jpg" class="preview" alt="Foto de usuario" />
+                    </figure>
+                </div>
+                <div class="img-wpp">
+                    <div id="preview-container"></div>
+                    <div class="file-upload">
+                        <input type="file" name="img" id="customFile" class="file-input" />
+                        <label for="customFile" class="file-label">
+                            Cargar foto principal del tour
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div style="margin-top: 20px;">
+                <label for="avaliables_dates">Fechas disponibles</label>
+                <div id="avaliables_dates_container">
+                    <input type="text" name="avaliables_dates[]" placeholder="Ingrese una fecha disponible">
+                </div>
+                <button type="button" onclick="addField('avaliables_dates_container', 'avaliables_dates[]')">Agregar fecha</button>
+            </div>
+
+            <div style="margin-top: 20px;">
+                <label for="place_detail">Detalles del lugar</label>
+                <div id="place_detail_container">
+                    <input type="text" name="place_detail[]" placeholder="Ingrese un detalle del lugar" required>
+                </div>
+                <button type="button" onclick="addField('place_detail_container', 'place_detail[]')">Agregar detalle</button>
+            </div>
+
+            <div class="photos">
+                <label for="photos">Puedes agregar hasta 10 fotos del lugar</label>
+                <div id="photos_container">
+                    <input type="file" name="photos[]" multiple>
+                </div>
+                <button type="button" onclick="addField('photos_container', 'photos[]', 'file')">Agregar foto</button>
+            </div>
+
+            <button type="submit" class="btn">Crear Tour</button>
+        </form>
+    </div>
+</section>
+
+<script>
+ function addField(containerId, name, type = "text") {
+    const container = document.getElementById(containerId);
+    const input = document.createElement("input");
+    input.type = type;
+    input.name = name;
+    input.placeholder = type === "text" ? "Ingrese un valor" : "";
+    container.appendChild(input);
+}
+
+</script>

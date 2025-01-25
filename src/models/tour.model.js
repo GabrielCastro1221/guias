@@ -7,7 +7,7 @@ const schema = new Schema(
     img: { type: String, required: true },
     thumbnail: [{ type: String }],
     place_detail: [{ type: String, required: true }],
-    guide: [{ type: Schema.Types.ObjectId, ref: "Guide" }],
+    guide: { type: Schema.Types.ObjectId, ref: "Guide" },
     gallery: [{ type: Schema.Types.ObjectId, ref: "Gallery" }],
     location: { type: String, required: true },
     category: { type: String, required: true },

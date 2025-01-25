@@ -46,7 +46,7 @@
 
   if (user) {
     authButton.textContent = "Perfil";
-    if (user.role === "guide") {
+    if (user.role === "guia") {
       authButton.href = "/perfil-guia";
     } else if (user.role === "usuario") {
       authButton.href = "/perfil-usuario";

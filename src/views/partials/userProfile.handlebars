@@ -3,30 +3,26 @@
 <div class="profile-content mt10" id="profile">
   <section class="seccion-perfil-usuario">
     <div class="perfil-usuario-header">
-      <img class="avatar" src="/assets/img/emptyAvatar.jpg" alt="Avatar" />
+      <img class="avatar" name="photo" src="" alt="Avatar" id="avatar" />
     </div>
 
     <div class="perfil-usuario-body">
       <ul class="lista-datos"></ul>
     </div>
 
-    <div class="btns-exit">
-      <button class="edit-button"><i class="ri-pencil-line"></i> Editar Perfil</button>
-      <button class="logout-button"><i class="ri-shut-down-line"></i> Cerrar Sesión</button>
-      <button class="delete-button"><i class="ri-delete-bin-6-line"></i> Eliminar Cuenta</button>
-    </div>
+    <div class="btns-exit" id="tabs"></div>
 
     <div id="editModal" class="modal">
       <div class="modal-content">
         <span class="close">&times;</span>
         <h2>Editar Mis Datos</h2>
-        <form id="editForm">
+        <form id="editForm" class="editForm">
           <label for="name">Nombre:</label>
-          <input type="text" id="name" name="name" placeholder="Nombre" />
-          <label for="email">Email:</label>
-          <input type="email" id="email" name="email" placeholder="Email" />
+          <input type="text" id="name" name="name" placeholder="Nombre" class="file-input" />
           <label for="phone">Teléfono:</label>
-          <input type="text" id="phone" name="phone" placeholder="Teléfono" />
+          <input type="text" id="phone" name="phone" placeholder="Teléfono" class="file-input" />
+          <label for="photo">Foto</label>
+          <input type="file" name="photo" id="customFile" class="file-input" />
           <button type="submit" class="save-button">Actualizar Perfil</button>
         </form>
       </div>

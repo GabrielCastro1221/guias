@@ -24,7 +24,8 @@ router.get(
 router.put(
   "/:id",
   upload.single("photo"),
-
+  auth.authenticate,
+  auth.restrict(["usuario"]),
   user.updateUser
 );
 router.put(

@@ -5,21 +5,25 @@ document.addEventListener("DOMContentLoaded", () => {
     renderProfile(user);
   }
 
-  const editButton = document.querySelector(".edit-button");
   const modal = document.getElementById("editModal");
-  const closeModal = document.querySelector(".modal .close");
+  const buttons = {
+    edit: document.querySelector(".edit-button"),
+    close: document.querySelector(".modal .close"),
+    logout: document.querySelector(".logout-button"),
+    delete: document.querySelector(".delete-button"),
+  };
 
-  editButton.addEventListener("click", () => {
+  buttons.edit.addEventListener("click", () => {
     const user = JSON.parse(localStorage.getItem("user"));
     if (user) {
       document.getElementById("name").value = user.name || "";
-      document.getElementById("email").value = user.email || "";
       document.getElementById("phone").value = user.phone || "";
+      document.getElementById("avatar").value = user.photo || "";
     }
     modal.style.display = "block";
   });
 
-  closeModal.addEventListener("click", () => {
+  buttons.close.addEventListener("click", () => {
     modal.style.display = "none";
   });
 
@@ -29,22 +33,138 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
+  buttons.logout.addEventListener("click", () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    Toastify({
+      text: "Sesión cerrada con éxito",
+      duration: 3000,
+      close: true,
+      gravity: "top",
+      position: "right",
+      backgroundColor: "#4CAF50",
+    }).showToast();
+    window.location.href = "/login";
+  });
+
+  buttons.delete.addEventListener("click", async () => {
+    const userData = JSON.parse(localStorage.getItem("user"));
+    const token = localStorage.getItem("token");
+
+    if (!userData || !userData._id) {
+      Toastify({
+        text: "No se encontró el ID del usuario.",
+        duration: 3000,
+        close: true,
+        gravity: "top",
+        position: "right",
+        backgroundColor: "#FF0000",
+      }).showToast();
+      return;
+    }
+    if (!token) {
+      Toastify({
+        text: "No se proporcionó el token.",
+        duration: 3000,
+        close: true,
+        gravity: "top",
+        position: "right",
+        backgroundColor: "#FF0000",
+      }).showToast();
+      return;
+    }
+
+    const id = userData._id;
+
+    Swal.fire({
+      title: "¿Estás seguro?",
+      text: "¡No podrás revertir esto!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Sí, eliminar",
+      cancelButtonText: "Cancelar",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+          const response = await fetch(`/api/v1/users/${id}`, {
+            method: "DELETE",
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          });
+          const result = await response.json();
+          if (response.ok) {
+            localStorage.removeItem("token");
+            localStorage.removeItem("user");
+            Toastify({
+              text: "Cuenta eliminada con éxito",
+              duration: 3000,
+              close: true,
+              gravity: "top",
+              position: "right",
+              backgroundColor: "#4CAF50",
+            }).showToast();
+            window.location.href = "/";
+          } else {
+            Swal.fire("Error", result.message, "error");
+          }
+        } catch (error) {
+          console.error("Error al eliminar el usuario:", error);
+          Swal.fire("Error", "Hubo un error al eliminar la cuenta.", "error");
+        }
+      }
+    });
+  });
+
+  const updateUser = async (id, userData) => {
+    const token = localStorage.getItem("token");
+    const formData = new FormData();
+    Object.keys(userData).forEach((key) => {
+      formData.append(key, userData[key]);
+    });
+
+    try {
+      const response = await fetch(`/api/v1/users/${id}`, {
+        method: "PUT",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        body: formData,
+      });
+      const result = await response.json();
+      if (response.ok) {
+        Toastify({
+          text: "Perfil actualizado con éxito",
+          duration: 3000,
+          close: true,
+          gravity: "top",
+          position: "right",
+          backgroundColor: "#4CAF50",
+        }).showToast();
+        localStorage.setItem("user", JSON.stringify(result.usuario));
+        renderProfile(result.usuario);
+        modal.style.display = "none";
+      } else {
+        Swal.fire("Error", result.message, "error");
+      }
+    } catch (error) {
+      console.error("Error al actualizar el usuario:", error);
+      Swal.fire("Error", "Hubo un error al actualizar el perfil.", "error");
+    }
+  };
+
   const editForm = document.getElementById("editForm");
   editForm.addEventListener("submit", (event) => {
     event.preventDefault();
-    const formData = new FormData(editForm);
-    const updatedData = {
-      name: formData.get("name"),
-      email: formData.get("email"),
-      phone: formData.get("phone"),
+    const user = JSON.parse(localStorage.getItem("user"));
+    const userData = {
+      name: document.getElementById("name").value,
+      phone: document.getElementById("phone").value,
+      photo: document.getElementById("customFile").files[0],
     };
-
-    const user = JSON.parse(localStorage.getItem("user")) || {};
-    const newUser = { ...user, ...updatedData };
-    localStorage.setItem("user", JSON.stringify(newUser));
-
-    renderProfile(newUser);
-    modal.style.display = "none";
+    updateUser(user._id, userData);
   });
 });
 
@@ -66,7 +186,7 @@ const renderProfile = (data) => {
     }
   });
 
-  const avatarImg = document.querySelector(".perfil-usuario-avatar img");
+  const avatarImg = document.getElementById("avatar");
   if (avatarImg) {
     avatarImg.src = data.photo || "/assets/img/emptyAvatar.jpg";
   }
@@ -116,61 +236,33 @@ const renderProfile = (data) => {
   });
 };
 
-const logoutButton = document.querySelector(".logout-button");
-logoutButton.addEventListener("click", () => {
-  localStorage.removeItem("token");
-  localStorage.removeItem("user");
-  window.location.href = "/login";
-});
+const tabs = document.getElementById("tabs");
 
-const deleteButton = document.querySelector(".delete-button");
-deleteButton.addEventListener("click", async () => {
-  const userData = JSON.parse(localStorage.getItem("user"));
-  const token = localStorage.getItem("token");
+const tabsData = [
+  {
+    class: "edit-button",
+    icon: "ri-pencil-line",
+    text: "Editar Perfil",
+  },
+  {
+    class: "logout-button",
+    icon: "ri-shut-down-line",
+    text: "Cerrar sesión",
+  },
+  {
+    class: "delete-button",
+    icon: "ri-delete-bin-6-line",
+    text: "Eliminar cuenta",
+  },
+];
 
-  if (!userData || !userData._id) {
-    alert("No se encontró el ID del usuario.");
-    return;
-  }
-  if (!token) {
-    alert("No se proporcionó el token.");
-    return;
-  }
+const createTabs = () => {
+  tabs.innerHTML = tabsData
+    .map(
+      (tab) =>
+        `<button class="${tab.class}"> <i class="${tab.icon}"></i> ${tab.text}</button>`
+    )
+    .join("");
+};
 
-  const id = userData._id;
-
-  Swal.fire({
-    title: "¿Estás seguro?",
-    text: "¡No podrás revertir esto!",
-    icon: "warning",
-    showCancelButton: true,
-    confirmButtonColor: "#3085d6",
-    cancelButtonColor: "#d33",
-    confirmButtonText: "Sí, eliminar",
-    cancelButtonText: "Cancelar",
-  }).then(async (result) => {
-    if (result.isConfirmed) {
-      try {
-        const response = await fetch(`/api/v1/users/${id}`, {
-          method: "DELETE",
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-        const result = await response.json();
-        if (response.ok) {
-          localStorage.removeItem("token");
-          localStorage.removeItem("user");
-          Swal.fire("Eliminado!", result.message, "success").then(() => {
-            window.location.href = "/";
-          });
-        } else {
-          Swal.fire("Error", result.message, "error");
-        }
-      } catch (error) {
-        console.error("Error al eliminar el usuario:", error);
-        Swal.fire("Error", "Hubo un error al eliminar la cuenta.", "error");
-      }
-    }
-  });
-});
+createTabs();
