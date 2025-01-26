@@ -13,8 +13,6 @@ router.post(
     { name: "mainImg", maxCount: 1 },
     { name: "photos", maxCount: 10 },
   ]),
-  auth.authenticate,
-  auth.restrict(["guia"]),
   tour.createTour
 );
 

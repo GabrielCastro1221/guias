@@ -8,67 +8,69 @@ class TourController {
   createTour = async (req, res) => {
     try {
       const {
-        guideId,
-        name,
+        title,
         description,
+        price,
+        guideId,
         location,
         category,
-        type,
-        avaliables_dates,
       } = req.body;
-
+      
       const requiredFields = [
-        guideId,
-        name,
+        title,
         description,
+        price,
+        guideId,
         location,
         category,
-        type,
-        avaliables_dates,
       ];
-
-      if (
-        requiredFields.includes(undefined) ||
-        requiredFields.includes(null) ||
-        requiredFields.includes("")
-      ) {
+      if (requiredFields.includes(undefined) || requiredFields.includes(null) || requiredFields.includes("")) {
         return res.status(400).json({
           status: false,
           message: "Todos los campos son obligatorios",
         });
       }
 
-      const mainImg = req.files["mainImg"][0].path;
-      const photos = req.files["photos"].map((file) => file.path);
+      const mainImg = req.files["mainImg"]?.[0]?.path;
+      const photos = req.files["photos"]?.map((file) => file.path) || [];
+  
+      const guideExists = await guideModel.findById(guideId);
+      if (!guideExists) {
+        return res.status(404).json({
+          status: false,
+          message: "El guía especificado no existe",
+        });
+      }
+  
       const newTour = new tourModel({
-        name,
+        title,
         description,
         img: mainImg,
-        thumbnail: photos,
+        photo: photos,
+        price,
         guide: guideId,
         location,
         category,
-        type,
-        avaliables_dates,
+        status: "aporte",
       });
-
       await newTour.save();
+  
       await guideModel.findByIdAndUpdate(guideId, {
         $push: { tours: newTour._id },
       });
-      const guideEmail = await guideModel.findById(guideId).select("email");
-      await mailer.enviarCorreoTourCreado(guideEmail.email, name);
-      await mailer.enviarCorreoNotificacionTourCreado({
-        name,
-        description,
+  
+      const tourData = {
+        title,
         location,
-        category,
-        type,
-      });
-      res.status(200).json({
+        price,
+        guideId,
+      };
+      await mailer.enviarCorreoNotificacionTourCreado(tourData);
+  
+      res.status(201).json({
         status: true,
-        message: "Tour creado con exito",
-        tour: newTour,
+        message: "Tour creado con éxito",
+        renta: newTour,
       });
     } catch (err) {
       res.status(500).json({
@@ -78,7 +80,8 @@ class TourController {
       });
     }
   };
-
+  
+  
   getAllTours = async (req, res) => {
     try {
       const tours = await tourModel.find({});

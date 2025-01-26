@@ -25,3 +25,29 @@ document.addEventListener("DOMContentLoaded", () => {
     mapSection.style.display = "block";
   });
 });
+
+document.addEventListener("DOMContentLoaded", () => {
+  const location = document.querySelector(".address span").textContent.trim();
+  const mapContainer = document.getElementById("map");
+  const iframeContent = mapContainer.querySelector(".iframe-content iframe");
+
+  if (location) {
+    const encodedLocation = encodeURIComponent(location);
+    const googleMapsURL = `https://www.google.com/maps/embed/v1/place?key=AIzaSyCjXA4OOkF1mjXukeBn9v8JIjnRtkIcf2U&q=${encodedLocation}`;
+
+    iframeContent.src = googleMapsURL;
+  } else {
+    console.error("No se encontró una ubicación válida.");
+  }
+
+  const tabs = document.querySelectorAll(".tabs button");
+  tabs.forEach((tab) => {
+    tab.addEventListener("click", () => {
+      const target = tab.getAttribute("data-target");
+
+      document.querySelectorAll(".info-content > div").forEach((content) => {
+        content.style.display = content.id === target ? "block" : "none";
+      });
+    });
+  });
+});

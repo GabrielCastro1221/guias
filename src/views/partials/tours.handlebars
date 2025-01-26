@@ -1,28 +1,25 @@
 <link rel="stylesheet" href="/css/tours.css" />
-<link rel="stylesheet" href="/css/home.css">
 
-<section class="popular section" id="popular">
+<section class="tour section" id="popular">
   <h2 class="section__title">
-    Nuestros Tours
+    Nuestras Aventuras
   </h2>
-  <div class="popular__container container grid">
+  <div class="tour__container container grid">
     {{#if tour}}
     {{#each tour}}
-    <article class="popular__card"
-      style="box-shadow: 0px 0px 15px rgba(255, 255, 255, 0.1); padding: 12px; border-radius: 5px">
-      <div class="popular__image">
+    <article class="tour__card">
+      <div class="tour__image">
         <a href="/tours/{{this._id}}">
-          <img src="{{this.img}}" alt="{{this.name}}" class="popular__img">
+          <img src="{{this.img}}" alt="{{this.title}}" class="tour__img">
           <div class="popular__shadow"></div>
         </a>
       </div>
-      <h2 class="popular__title" style="text-align: center;">
-        {{this.name}}
+      <h2 class="tour__title">
+        {{this.title}}
       </h2>
-      <div class="popular__location about-guide">
-        <span style="text-align: center;">{{this.description}}</span>
+      <div class="tour__content">
+        <a href="/tours/{{this._id}}" class="btn-info">Mas información</a>
       </div>
-      <a href="/tours/{{this._id}}" class="btn-info">Mas información</a>
     </article>
     {{/each}}
     {{else}}

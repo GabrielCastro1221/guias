@@ -77,7 +77,7 @@ class ViewsManager {
   renderTourDetail = async (req, res) => {
     const { id } = req.params;
     try {
-      const tour = await tourModel.findById(id).lean();
+      const tour = await tourModel.findById(id).populate("guide").lean();
       if (!tour) {
         return res.status(404).render("pageNotFound", {
           message: "Tour no encontrado",
