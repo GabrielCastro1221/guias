@@ -163,26 +163,25 @@ class PostController {
   addComment = async (req, res) => {
     const { id } = req.params;
     const { comment } = req.body;
-    const user = req.user;
-    if (!user) {
-      return res.status(401).json({ message: "Usuario no autenticado." });
-    }
-    const userId = user._id;
+
     try {
       if (!comment) {
         return res
           .status(400)
           .json({ message: "El comentario no puede estar vacío." });
       }
+
       const post = await postModel.findById(id);
+
       if (!post) {
         return res.status(404).json({ message: "Publicación no encontrada." });
       }
+
       post.review.push({
-        user: userId,
         comment,
         date: new Date(),
       });
+
       await post.save();
 
       res.status(200).json({ message: "Comentario agregado con éxito.", post });

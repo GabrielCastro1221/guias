@@ -16,16 +16,23 @@ router.get(
   guide.getGuideProfile
 );
 
-router.put("/:id", guide.updateGuide);
-
-router.put("/:id/approval-status", 
-  auth.authenticate, 
-  auth.restrict(["admin"]), 
+router.put(
+  "/:id",
+  upload.single("photo"),
+  auth.authenticate,
+  auth.restrict(["guia"]),
+  guide.updateGuide
+);
+router.put(
+  "/:id/approval-status",
+  auth.authenticate,
+  auth.restrict(["admin"]),
   guide.changeApprovalStatus
 );
-router.put("/:id/cancelled-status", 
-  auth.authenticate, 
-  auth.restrict(["admin"]), 
+router.put(
+  "/:id/cancelled-status",
+  auth.authenticate,
+  auth.restrict(["admin"]),
   guide.cancelledStatus
 );
 

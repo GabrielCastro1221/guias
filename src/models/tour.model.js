@@ -7,6 +7,7 @@ const schema = new Schema({
   img: { type: String, required: true },
   photo: [{ type: String }],
   guide: { type: Schema.Types.ObjectId, ref: "Guide", required: true },
+  gallery: [{ type: String }],
   location: { type: String, required: true, unique: true },
   category: { type: String, required: true },
   isApproved: {

@@ -17,9 +17,9 @@
     flex: 1 1 calc(33.333% - 1.5rem);
     box-sizing: border-box;
     max-width: 300px;
-    box-shadow: 0px 0px 15px rgba(255, 255, 255, 0.1); 
-    padding: 12px; 
-    border-radius: 5px
+    box-shadow: 0px 0px 15px rgba(255, 255, 255, 0.1);
+    padding: 12px;
+    border-radius: 5px;
 }
 
 .tour__image {
@@ -34,7 +34,6 @@
     object-fit: cover;
     transition: transform .4s;
 }
-
 
 .tour__shadow {
     position: absolute;
@@ -100,6 +99,13 @@
     background-color: #5b5a5a;
 }
 
+@media (max-width: 1168px) {
+    .tour__card {
+        margin-right: 45px;
+        margin-left: -20px;
+    }
+}
+
 @media (max-width: 768px) {
     .tour__card {
         flex: 1 1 calc(50% - 1.5rem);
@@ -109,5 +115,6 @@
 @media (max-width: 480px) {
     .tour__card {
         flex: 1 1 100%;
+        margin-left: 10px;
     }
 }

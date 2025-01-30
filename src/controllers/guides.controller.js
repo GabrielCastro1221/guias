@@ -1,5 +1,5 @@
 const guideModel = require("../models/guides.model");
-const tourModel = require("../models/tour.model");
+const { logger } = require("../middlewares/logger.middleware")
 
 class GuideController {
   getAllGuides = async (req, res) => {
@@ -51,11 +51,32 @@ class GuideController {
   updateGuide = async (req, res) => {
     const { id } = req.params;
     try {
+      let photoUrl = req.body.photo;
+      if (req.file) {
+        photoUrl = req.file.path;
+      }
+
+      const education = req.body.education
+        ? JSON.parse(req.body.education)
+        : undefined;
+      const experiences = req.body.experiences
+        ? JSON.parse(req.body.experiences)
+        : undefined;
+
+      const updateData = {
+        ...req.body,
+        photo: photoUrl,
+      };
+
+      if (education) updateData.education = education;
+      if (experiences) updateData.experiences = experiences;
+
       const updatedGuide = await guideModel.findByIdAndUpdate(
         id,
-        { $set: { ...req.body } },
-        { new: true }
+        { $set: updateData },
+        { new: true, runValidators: true }
       );
+
       if (!updatedGuide) {
         return res.status(404).json({
           status: false,
@@ -64,14 +85,13 @@ class GuideController {
       }
       res.status(200).json({
         status: true,
-        message: "Guia actualizado con exito",
+        message: "Guia actualizado con éxito",
         guia: updatedGuide,
       });
     } catch (err) {
       res.status(500).json({
         status: false,
         message: "Error al actualizar el guia",
-        error: err.message,
       });
     }
   };
@@ -103,7 +123,10 @@ class GuideController {
   async getGuideProfile(req, res) {
     const guideId = req.guideId ? req.guideId : null;
     try {
-      const guide = await guideModel.findById(guideId).populate("tours").select("-password");
+      const guide = await guideModel
+        .findById(guideId)
+        .populate("tours")
+        .select("-password");
       if (!guide) {
         return res.status(404).json({
           success: false,

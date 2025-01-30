@@ -1,0 +1,55 @@
+<link rel="stylesheet" href="/css/editGuideProfile.css">
+
+<div class="modal-content">
+    <span class="close">&times;</span>
+    <h2>Editar Información Perfil</h2>
+    <form class="form">
+        <div class="input-box">
+            <label for="name">Nombre:</label>
+            <input type="text" name="name" id="name" required>
+        </div>
+        <div class="input-box">
+            <label for="email">Email:</label>
+            <input type="text" name="email" id="email" readonly required>
+        </div>
+        <div class="input-box">
+            <label for="phone">Telefono:</label>
+            <input type="text" name="phone" id="phone" required>
+        </div>
+        <div class="input-box">
+            <label for="about">Sobre mi:</label>
+            <input type="text" name="about" id="about" required>
+        </div>
+        <div class="input-box">
+            <label for="education">Educación:</label>
+            <div id="education-container"></div>
+            <button type="button" id="add-education">Añadir Educación</button>
+        </div>
+
+        <div class="input-box">
+            <label for="experience">Experiencia:</label>
+            <div id="experience-container"></div>
+            <button type="button" id="add-experience">Añadir Experiencia</button>
+        </div>
+
+        <div class="form-group flex-gap">
+            <div class="img-wpp mt">
+                <figure class="image-preview">
+                    <img src="https://img.freepik.com/free-photo/cute-leaf-cartoon-illustration_23-2151411202.jpg"
+                        class="preview" alt="Foto de usuario" />
+                </figure>
+            </div>
+            <div class="img-wpp">
+                <div class="file-upload">
+                    <input type="file" name="photo" id="customFile" class="file-input" />
+                    <label for="customFile" class="file-label">
+                        Subir foto
+                    </label>
+                </div>
+            </div>
+        </div>
+        <button type="submit" class="btn-edit-guide">Actualizar información</button>
+    </form>
+</div>
+
+<script src="/js/editGuideProfile.js"></script>

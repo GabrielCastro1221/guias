@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
   let currentPostId = null;
 
   const tabs = [
-    { dataFilter: "all", text: "Todas las publicaciones" },
+    { dataFilter: "all", text: "Publicaciones" },
     { dataFilter: "turismo", text: "Turismo" },
     { dataFilter: "pajaros", text: "Pajaros" },
     { dataFilter: "senderismo", text: "Senderismo" },
@@ -84,7 +84,7 @@ document.addEventListener("DOMContentLoaded", () => {
               <span>${article.post_date}</span>
             </div>
             <h2 class="article-title">${article.title_one}</h2>
-            <p class="article-desc">${article.desc_one}</p>
+
             <div class="article-views">
               <span class="comment-icon" data-post-id="${
                 article._id

@@ -3,9 +3,9 @@
     align-items: center;
     justify-content: space-around;
     margin-bottom: 30px;
-}
-
-.post-filter span {
+  }
+  
+  .post-filter span {
     background-color: hsla(0, 0%, 100%, .2);
     padding: 8px;
     border-radius: 3px;
@@ -18,81 +18,80 @@
     backdrop-filter: blur(24px);
     -webkit-backdrop-filter: blur(24px);
     cursor: pointer;
-}
-
-.post-filter span:hover {
+  }
+  
+  .post-filter span:hover {
     background-color: #5b5a5a;
-}
-
-.container-tour {
+  }
+  
+  .container-tour {
     max-width: 1200px;
     margin: 0 auto;
     padding: 20px;
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
-}
-
-.tour-container {
+  }
+  
+  .tour-container {
     margin-top: 80px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     gap: 20px;
-}
-
-.gallery {
+  }
+  
+  .gallery {
     display: flex;
     align-items: center;
     justify-content: center;
     flex-wrap: wrap;
     gap: 10px;
-    width: 80%;
-    margin-left: 50px;
+    width: 100%;
     margin-top: 20px;
-}
-
-.gallery img {
+  }
+  
+  .gallery img {
     width: 150px;
     height: 100px;
     object-fit: cover;
     border-radius: 5px;
     cursor: pointer;
     transition: transform 0.3s;
-}
-
-.gallery img:hover {
+  }
+  
+  .gallery img:hover {
     transform: scale(1.1);
-}
-
-#tour-detail {
+  }
+  
+  #tour-detail {
     padding: 15px;
-    width: 620px;
-    margin-right: 80px;
+    width: 100%;
+    max-width: 620px;
     border-radius: 5px;
     cursor: pointer;
     transition: all 0.3s;
-    
     box-shadow: 0px 0px 15px rgba(255, 255, 255, 0.1);
-}
-
-.tour-content-det{
+  }
+  
+  .tour-content-det {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     gap: 20px;
-}
-
-.tour-content-det img {
+  }
+  
+  .tour-content-det img {
     width: 100%;
-    height: 300px;
+    height: auto;
+    max-height: 300px;
     object-fit: cover;
     border-radius: 5px;
-}
-
-.wpp-btn {
+  }
+  
+  .wpp-btn {
     background-color: hsla(0, 0%, 100%, 0.2);
     padding: 8px;
     border-radius: 3px;
@@ -107,138 +106,136 @@
     width: 100%;
     -webkit-backdrop-filter: blur(24px);
     cursor: pointer;
-}
-.wpp-btn:hover {
+  }
+  
+  .wpp-btn:hover {
     background-color: #5b5a5a;
-}
-
-#tour-detail h2 {
+  }
+  
+  #tour-detail h2 {
     text-align: center;
     font-weight: var(--font-semi-bold);
     color: var(--title-color);
-}
-
-.description {
+  }
+  
+  .description {
     margin-top: 20px;
     margin-bottom: 10px;
     font-size: 0.9rem;
     text-align: center;
-}
-
-#tour-detail p {
+  }
+  
+  #tour-detail p {
     text-align: center;
     margin-top: 10px;
-}
-
-.place-info h3 {
+  }
+  
+  .place-info h3 {
     margin-top: 20px;
     margin-bottom: 30px;
     font-size: 2rem;
     font-weight: var(--font-semi-bold);
-    margin-left: 20px;
     text-transform: capitalize;
-}
-
-.info-content {
+  }
+  
+  .info-content {
     margin-bottom: 30px;
-}
-
-.info-content p {
+  }
+  
+  .info-content p {
     margin-top: 10px;
-    margin-left: 40px;
     color: var(--text-color);
     font-weight: var(--font-semi-bold);
     letter-spacing: 0.3px;
     text-align: justify;
-}
-
-.tabs {
+  }
+  
+  .tabs {
     margin-top: 30px;
     margin-bottom: 5px;
     display: flex;
     align-items: center;
     gap: 30px;
-}
-
-.tabs button {
+  }
+  
+  .tabs button {
     background-color: transparent;
     cursor: pointer;
     font-weight: 600;
     text-transform: uppercase;
-}
-
-.tabs button:hover {
+  }
+  
+  .tabs button:hover {
     color: #5b5a5a;
-}
-
-.map-content {
+  }
+  
+  .map-content {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-}
-
-.map-content h3 {
+  }
+  
+  .map-content h3 {
     margin-bottom: 20px;
-}
-
-.iframe-content {
+  }
+  
+  .iframe-content {
     padding: 15px;
-    width: 620px;
-    margin-right: 80px;
+    width: 100%;
+    max-width: 620px;
     border-radius: 5px;
     cursor: pointer;
     transition: all 0.3s;
     box-shadow: 0px 0px 15px rgba(255, 255, 255, 0.1);
-    margin-left: 100px;
-}
-
-.iframe-content iframe {
-    width: 590px;
+  }
+  
+  .iframe-content iframe {
+    width: 100%;
     border-radius: 3px;
-}
-
-.guide-info h3 {
+  }
+  
+  .guide-info h3 {
     margin-top: 20px;
     margin-bottom: 30px;
     text-align: center;
     font-weight: var(--font-semi-bold);
-    margin-left: 20px;
     text-transform: capitalize;
-}
-
-.guide-info-content {
+  }
+  
+  .guide-info-content {
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 20px;
     margin-top: 15px;
-}
-
-.guide-info-content img {
+  }
+  
+  .guide-info-content img {
     width: 60px;
     height: 60px;
     object-fit: cover;
     border-radius: 50%;
-}
-
-@media (min-width: 768px) {
+  }
+  
+  @media (min-width: 768px) {
     .tour-container {
-        flex-direction: row;
-        gap: 50px;
+      flex-direction: row;
+      gap: 50px;
     }
-
+  
     .main-image img {
-        max-width: 300px;
+      max-width: 300px;
     }
-
+  
     .details {
-        width: 400px;
+      width: 400px;
     }
-}
-
-@media (min-width: 1024px) {
+  }
+  
+  @media (min-width: 1024px) {
     .tour-container {
-        gap: 100px;
+      gap: 100px;
     }
-}
+  }
+  
